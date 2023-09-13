@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ResetTrain</string>
+    <string name="are_you_sure_message">¿Are you sure?</string>
+    <string name="remove_task_message">Delete record</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="register_boton">Insert</string>
+    <string name="cancel_boton">Cancel</string>
+    <string name="lenguajes_boton">Language</string>
+    <string name="usuarios">Users</string>
+    <string name="rutinas">Grind</string>
+    <string name="perfiles">Outline</string>
+    <string name="ritmo_cardiaco">Heart rate</string>
+    <string name="medidas">Measurement</string>
+    <string name="peso">Weight</string>
+    <string name="fecha_medicion">Measurement date</string>
+    <string name="Obesidad">Obesity</string>
+    <string name="modalidad">Modality</string>
+    <string name="numero_series">Number of series</string>
+    <string name="numero_repes">Number of repetitionses</string>
+    <string name="dias_entreno">Days</string>
+    <string name="duracion_entreno">Training duration</string>
+    <string name="material">Material</string>
+    <string name="nombre">Name</string>
+    <string name="apellidos">Surname</string>
+    <string name="objetivo">Objetive</string>
+    <string name="contrasena">Password</string>
+    <string name="fecha_naci">Birth Date</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="marca_obe">If you press the button to mark obesity, you can no longer unmark it</string>
+    <string name="marca_material">If you press the mark material button, you can no longer unmark it</string>
+    <string name="marca_lesionado">If you press the mark injury button, you can no longer unmark it</string>
+    <string name="lesionado">Injured</string>
+    <string name="boton_borrar">Delete</string>
+    <string name="usuario_lesion">Check Injured</string>
+    <string name="rutina_material">Check Material</string>
+    <string name="perfil_obe">Check Obesity</string>
+    <string name="boton_detalles">Details</string>
+    <string name="atras">Back</string>
+    <string name="ubicacion_boton">Map</string>
+</resources>
