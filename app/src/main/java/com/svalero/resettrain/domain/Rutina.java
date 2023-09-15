@@ -20,6 +20,9 @@ public class Rutina {
     private String dias;
     @ColumnInfo
     private String duracion;
+    @ColumnInfo
+    private boolean favorito;
+
 
     public Rutina() {
     }
@@ -30,6 +33,7 @@ public class Rutina {
         this.dias = dias;
         this.duracion = duracion;
         this.material = false;
+        this.favorito = false;
     }
 
     public String getModalidad() {
@@ -86,5 +90,13 @@ public class Rutina {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isFavorito() {
+        return favorito;
+    }
+
+    public void setFavorito(boolean favorito) {
+        this.favorito = favorito;
     }
 }

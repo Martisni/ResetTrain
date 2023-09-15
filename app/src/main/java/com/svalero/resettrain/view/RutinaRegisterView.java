@@ -1,4 +1,4 @@
-package com.svalero.resettrain;
+package com.svalero.resettrain.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,17 +13,23 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
-import com.svalero.resettrain.database.AppDatabase;
+import com.svalero.resettrain.R;
+import com.svalero.resettrain.contract.RutinaRegisterContract;
 import com.svalero.resettrain.domain.LanguageItem;
-import com.svalero.resettrain.domain.Perfil;
+import com.svalero.resettrain.domain.Rutina;
+import com.svalero.resettrain.presenter.RutinaRegisterPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class AddPerfilActivity extends AppCompatActivity {
+public class RutinaRegisterView extends AppCompatActivity implements RutinaRegisterContract.View {
+
+    private Rutina rutina;
+    private RutinaRegisterPresenter presenter;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,29 +45,31 @@ public class AddPerfilActivity extends AppCompatActivity {
         getResources().updateConfiguration(config, getResources().getDisplayMetrics());
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_perfil);
+        setContentView(R.layout.activity_add_rutina);
     }
-    public void addPerfil(View view) {
-        EditText etRitmo = findViewById(R.id.ritmoEditText);
-        EditText etMedidas = findViewById(R.id.medidasEditText);
-        EditText etPeso = findViewById(R.id.pesoEditText);
-        EditText etFecha = findViewById(R.id.fechaEditText);
 
-        String ritmo = etRitmo.getText().toString();
-        String medidas = etMedidas.getText().toString();
-        String peso = etPeso.getText().toString();
-        String fecha = etFecha.getText().toString();
+    public void addRutina(View view){
+        EditText etModalidad = findViewById(R.id.modalidadEditText);
+        EditText etSeries = findViewById(R.id.seriesEditText);
+        EditText etRepeticiones = findViewById(R.id.repeticionesEditText);
+        EditText etDias = findViewById(R.id.diasEditText);
+        EditText etDuracion = findViewById(R.id.duracionEditText);
 
-        Perfil perfil = new Perfil(ritmo, medidas, peso, fecha);
-        final AppDatabase database = Room.databaseBuilder(this, AppDatabase.class, "perfil")
-                .allowMainThreadQueries().build();
-        database.perfilDao().insert(perfil);
+        String modalidad = etModalidad.getText().toString();
+        String series = etSeries.getText().toString();
+        String repeticiones = etRepeticiones.getText().toString();
+        String dias = etDias.getText().toString();
+        String duracion = etDuracion.getText().toString();
 
-        etRitmo.setText("");
-        etMedidas.setText("");
-        etPeso.setText("");
-        etFecha.setText("");
-        etRitmo.requestFocus();
+        Rutina rutina = new Rutina(modalidad, series, repeticiones, dias, duracion);
+        presenter.registerRutina(rutina);
+
+        etModalidad.setText("");
+        etSeries.setText("");
+        etRepeticiones.setText("");
+        etDias.setText("");
+        etDuracion.setText("");
+        etModalidad.requestFocus();
     }
 
     public void goBackButton(View view) {
@@ -118,4 +126,18 @@ public class AddPerfilActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    public void showMessage(String message) {
+
+    }
+
+    @Override
+    public void resetForm() {
+
+    }
+
+    @Override
+    public void showError(String errorMessage) {
+
+    }
 }

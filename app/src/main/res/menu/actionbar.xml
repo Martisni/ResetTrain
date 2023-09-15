@@ -12,4 +12,10 @@
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/ubicacion_boton" />
+    <item
+        android:id="@+id/activity_view_rutina"
+        android:icon="@android:drawable/ic_menu_add"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/favorito" />
 </menu>

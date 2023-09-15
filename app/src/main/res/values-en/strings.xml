@@ -40,4 +40,6 @@
     <string name="boton_detalles">Details</string>
     <string name="atras">Back</string>
     <string name="ubicacion_boton">Map</string>
+    <string name="favorito">Favorite</string>
+    <string name="boton_favorito">Check Favorite</string>
 </resources>

@@ -1,12 +1,10 @@
 package com.svalero.resettrain.presenter;
 
+import android.content.Context;
+
 import com.svalero.resettrain.contract.UsuarioDetailsContract;
-import com.svalero.resettrain.contract.UsuarioListContract;
 import com.svalero.resettrain.domain.Usuario;
 import com.svalero.resettrain.model.UsuarioDetailsModel;
-import com.svalero.resettrain.model.UsuarioListModel;
-import android.content.Context;
-import java.util.List;
 
 public class UsuarioDetailsPresenter implements UsuarioDetailsContract.Presenter,
     UsuarioDetailsContract.Model.OnLoadUsuarioListener {
@@ -33,6 +31,6 @@ public class UsuarioDetailsPresenter implements UsuarioDetailsContract.Presenter
 
     @Override
     public void loadUsuario(long id) {
-        model.getUsuario(id);
+        model.loadUsuarioById(id,this);
     }
 }

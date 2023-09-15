@@ -6,8 +6,8 @@ public interface UsuarioRegisterContract {
 
     interface Model{
        interface OnRegisterUsuarioListener{
-           void onRegisterSuccess(Usuario usuario);
-           void onRegisterError(String message);
+           void onRegisterUsuarioSuccess(Usuario usuario);
+           void onRegisterUsuarioError(String message);
        }
 
        void registerUsuario(Usuario usuario, OnRegisterUsuarioListener listener);

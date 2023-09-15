@@ -39,4 +39,6 @@
     <string name="boton_detalles">Detalles</string>
     <string name="atras">Atrás</string>
     <string name="ubicacion_boton">Mapa</string>
+    <string name="favorito">Favoritos</string>
+    <string name="boton_favorito">Marcar Favorito</string>
 </resources>

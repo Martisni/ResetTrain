@@ -16,7 +16,7 @@ import androidx.room.Room;
 import com.svalero.resettrain.R;
 import com.svalero.resettrain.database.AppDatabase;
 import com.svalero.resettrain.domain.Usuario;
-import com.svalero.resettrain.presenter.UsuarioDetailsPresenter;
+import com.svalero.resettrain.view.UsuarioDetailsView;
 
 import java.util.List;
 
@@ -93,7 +93,7 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.UsuarioV
     private void detailUsuario(int position) {
         Usuario usuario = usuarioList.get(position);
 
-        Intent intent = new Intent(context, UsuarioDetailsActivity.class);
+        Intent intent = new Intent(context, UsuarioDetailsView.class);
         intent.putExtra("name", usuario.getName());
         context.startActivity(intent);
     }

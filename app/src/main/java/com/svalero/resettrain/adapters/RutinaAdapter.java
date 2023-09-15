@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import com.svalero.resettrain.R;
-import com.svalero.resettrain.RutinaDetailsActivity;
 import com.svalero.resettrain.database.AppDatabase;
 import com.svalero.resettrain.domain.Rutina;
+import com.svalero.resettrain.view.RutinaDetailsView;
 
 import java.util.List;
 
@@ -58,6 +58,7 @@ public class RutinaAdapter extends RecyclerView.Adapter<RutinaAdapter.RutinaView
         public CheckBox rutinaMaterial;
         public Button deleteRutinaButton;
         public Button modifyRutinaButton;
+        public Button modifyFavoritoButton;
         public Button detailRutinaButton;
         public View parentView;
 
@@ -71,6 +72,7 @@ public class RutinaAdapter extends RecyclerView.Adapter<RutinaAdapter.RutinaView
             rutinaMaterial = view.findViewById(R.id.materialCB);
             deleteRutinaButton = view.findViewById(R.id.delete_rutina_button);
             modifyRutinaButton = view.findViewById(R.id.modify_rutina_button);
+            modifyFavoritoButton = view.findViewById(R.id.modify_favorito_button);
             detailRutinaButton = view.findViewById(R.id.details_rutina_button);
 
             // Eliminar usuario
@@ -79,11 +81,23 @@ public class RutinaAdapter extends RecyclerView.Adapter<RutinaAdapter.RutinaView
             detailRutinaButton.setOnClickListener(v -> detailRutina(getAdapterPosition()));
             // Modificar o Editar el usuario
             modifyRutinaButton.setOnClickListener(v -> modifyRutina(getAdapterPosition()));
+            // Favorito
+            modifyFavoritoButton.setOnClickListener(v -> modifyFav(getAdapterPosition()));
         }
     }
     private void modifyRutina(int position) {
         Rutina rutina = rutinaList.get(position);
-        rutina.setMaterial(true);
+        rutina.setMaterial(!rutina.isMaterial());
+
+        final AppDatabase database = Room.databaseBuilder(context, AppDatabase.class, "rutina")
+                .allowMainThreadQueries().build();
+        database.rutinaDao().update(rutina);
+
+        notifyItemChanged(position);
+    }
+    private void modifyFav(int position) {
+        Rutina rutina = rutinaList.get(position);
+        rutina.setFavorito(!rutina.isFavorito());
 
         final AppDatabase database = Room.databaseBuilder(context, AppDatabase.class, "rutina")
                 .allowMainThreadQueries().build();
@@ -94,7 +108,7 @@ public class RutinaAdapter extends RecyclerView.Adapter<RutinaAdapter.RutinaView
     private void detailRutina(int position) {
         Rutina rutina = rutinaList.get(position);
 
-        Intent intent = new Intent(context, RutinaDetailsActivity.class);
+        Intent intent = new Intent(context, RutinaDetailsView.class);
         intent.putExtra("modalidad", rutina.getModalidad());
         context.startActivity(intent);
     }

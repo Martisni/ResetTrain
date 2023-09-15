@@ -4,33 +4,34 @@ import android.database.sqlite.SQLiteConstraintException;
 
 import com.svalero.resettrain.api.ResetTrainApi;
 import com.svalero.resettrain.api.ResetTrainApiInterface;
+import com.svalero.resettrain.contract.PerfilRegisterContract;
 import com.svalero.resettrain.contract.UsuarioRegisterContract;
+import com.svalero.resettrain.domain.Perfil;
 import com.svalero.resettrain.domain.Usuario;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UsuarioRegisterModel implements UsuarioRegisterContract.Model {
-
+public class PerfilRegisterModel implements PerfilRegisterContract.Model {
 
     @Override
-    public void registerUsuario(Usuario usuario, OnRegisterUsuarioListener listener) {
+    public void registerPerfil(Perfil perfil, OnRegisterPerfilListener listener) {
         try {
             ResetTrainApiInterface resetTrainApi = ResetTrainApi.buildInstance();
-            Call<Usuario> callUsuarios = resetTrainApi.addUsuario(usuario);
-            callUsuarios.enqueue(new Callback<Usuario>() {
+            Call<Perfil> callPerfiles = resetTrainApi.addPerfil(perfil);
+            callPerfiles.enqueue(new Callback<Perfil>() {
                 @Override
-                public void onResponse(Call<Usuario> call, Response<Usuario> response) {
-                    Usuario usuario = response.body();
-                    listener.onRegisterUsuarioSuccess(usuario);
+                public void onResponse(Call<Perfil> call, Response<Perfil> response) {
+                   Perfil perfil = response.body();
+                    listener.onRegisterPerfilSuccess(perfil);
                 }
 
                 @Override
-                public void onFailure(Call<Usuario> call, Throwable t) {
+                public void onFailure(Call<Perfil> call, Throwable t) {
                     t.printStackTrace();
                     String message = "fallo";
-                    listener.onRegisterUsuarioError(message);
+                    listener.onRegisterPerfilError(message);
                 }
             });
         } catch (SQLiteConstraintException sce) {

@@ -1,4 +1,4 @@
-package com.svalero.resettrain;
+package com.svalero.resettrain.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.svalero.resettrain.R;
 import com.svalero.resettrain.domain.LanguageItem;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainView extends AppCompatActivity {
 
     ViewFlipper v_flipper;
 
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         addUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), AddUsuarioActivity.class);
+                Intent intent = new Intent(v.getContext(), UsuarioRegisterView.class);
                 startActivityForResult(intent, 0);
             }
         });
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         viewUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ViewUsuarioActivity.class);
+                Intent intent = new Intent(v.getContext(), UsuarioListView.class);
                 startActivityForResult(intent, 0);
             }
         });
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         addRutina.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), AddRutinaActivity.class);
+                Intent intent = new Intent(v.getContext(), RutinaRegisterView.class);
                 startActivityForResult(intent, 0);
             }
         });
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         viewRutina.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ViewRutinaActivity.class);
+                Intent intent = new Intent(v.getContext(), RutinaListView.class);
                 startActivityForResult(intent, 0);
             }
         });
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         addPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), AddPerfilActivity.class);
+                Intent intent = new Intent(v.getContext(), PerfilRegisterView.class);
                 startActivityForResult(intent, 0);
             }
         });
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         viewPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ViewPerfilActivity.class);
+                Intent intent = new Intent(v.getContext(), PerfilListView.class);
                 startActivityForResult(intent, 0);
             }
         });
@@ -131,7 +132,10 @@ public class MainActivity extends AppCompatActivity {
             showLanguageDialog();
             return true;
         } else if (item.getItemId() == R.id.mapView) {
-            Intent intent = new Intent(this, MapsActivity.class);
+            Intent intent = new Intent(this, MapsView.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.activity_view_rutina) {
+            Intent intent = new Intent(this, RutinaListFavoritoView.class);
             startActivity(intent);
         }
 

@@ -1,4 +1,4 @@
-package com.svalero.resettrain;
+package com.svalero.resettrain.view;
 
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -14,8 +14,9 @@ import com.mapbox.maps.plugin.annotation.AnnotationPluginImplKt;
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationManager;
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationManagerKt;
 import com.mapbox.maps.plugin.annotation.generated.PointAnnotationOptions;
+import com.svalero.resettrain.R;
 
-public class MapsActivity extends AppCompatActivity {
+public class MapsView extends AppCompatActivity{
 
     private MapView mapView;
     private PointAnnotationManager pointAnnotationManager;

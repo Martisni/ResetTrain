@@ -16,29 +16,51 @@ import retrofit2.http.Path;
 
 public interface ResetTrainApiInterface {
 
-    @GET("/gym/usuarios")
+    @GET("/gym/users")
     Call<List<Usuario>> getUsuario();
 
-    @POST("/gym/usuarios")
+    @GET("/gym/users/{id}")
+    Call<Usuario> getUsuarioById(@Path("id") long id);
+
+    @POST("/gym/usuario")
     Call<Usuario> addUsuario(@Body Usuario usuario);
 
-    @DELETE("/gym/usuarios")
+    @DELETE("/gym/usuario/{id}")
     Call<Void> deleteUsuario(@Path("id") long id);
 
-    @PUT("/gym/usuarios")
+    @PUT("/gym/usuario/{id}")
     Call<Usuario> updateUsuario(@Path("id") long id, @Body Usuario usuario);
 
-    @POST("/gym/usuarios")
-    Call<Usuario> addUsuario();
+    @GET("/gym/perfils")
+    Call<List<Perfil>> getPerfil();
 
-    @GET("/gym/usuarios/{id}")
-    Call<Usuario> getUsuarioId(@Path("id") long id);
+    @GET("/gym/perfils/{id}")
+    Call<Perfil> getPerfilById(@Path("id") long id);
 
-    @GET("/gym/perfiles/{id}")
-    Call<Perfil> getPerfilId(@Path("id") long id);
+    @POST("/gym/perfiles")
+    Call<Perfil> addPerfil(@Body Perfil perfil);
 
-    @GET("/gym/rutinas/{id}")
-    Call<Rutina> getRutinaId(@Path("id") long id);
+    @DELETE("/gym/perfil/{id}")
+    Call<Void> deletePerfil(@Path("id") long id);
+
+    @PUT("/gym/perfil/{id}")
+    Call<Usuario> updatePerfil(@Path("id") long id, @Body Perfil perfil);
+
+    @GET("/gym/rutins")
+    Call<List<Rutina>> getRutina();
+
+    @GET("/gym/rutins/{id}")
+    Call<Rutina> getRutinaById(@Path("id") long id);
+
+    @POST("/gym/rutinas")
+    Call<Rutina> addRutina(@Body Rutina rutina);
+
+    @DELETE("/gym/rutina/{id}")
+    Call<Void> deleteRutina(@Path("id") long id);
+
+    @PUT("/gym/rutinas/{id}")
+    Call<Usuario> updateRutina(@Path("id") long id, @Body Rutina rutina);
+
 
 
 

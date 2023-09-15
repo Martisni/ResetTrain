@@ -14,12 +14,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import com.svalero.resettrain.R;
 import com.svalero.resettrain.adapters.UsuarioAdapter;
 import com.svalero.resettrain.contract.UsuarioListContract;
-import com.svalero.resettrain.database.AppDatabase;
 import com.svalero.resettrain.domain.LanguageItem;
 import com.svalero.resettrain.domain.Usuario;
 import com.svalero.resettrain.presenter.UsuarioListPresenter;
@@ -78,17 +76,7 @@ public class UsuarioListView extends AppCompatActivity implements UsuarioListCon
     }
 
 
-    @Override
-    public void showUsuarios(List<Usuario> usuarios) {
-        usuarioList.clear();
-        usuarioList.addAll(usuarios);
-        adapter.notifyDataSetChanged();
-    }
 
-    @Override
-    public void showError(String message) {
-        showError("Error al mostrar usuarios");
-    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -138,6 +126,18 @@ public class UsuarioListView extends AppCompatActivity implements UsuarioListCon
         Intent intent = getIntent();
         finish();
         startActivity(intent);
+    }
+
+    @Override
+    public void showUsuarios(List<Usuario> usuarios) {
+        usuarioList.clear();
+        usuarioList.addAll(usuarios);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showError(String message) {
+
     }
 
 }

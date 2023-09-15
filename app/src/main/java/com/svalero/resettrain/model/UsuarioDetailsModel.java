@@ -5,10 +5,7 @@ import android.content.Context;
 import com.svalero.resettrain.api.ResetTrainApi;
 import com.svalero.resettrain.api.ResetTrainApiInterface;
 import com.svalero.resettrain.contract.UsuarioDetailsContract;
-import com.svalero.resettrain.contract.UsuarioListContract;
 import com.svalero.resettrain.domain.Usuario;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,9 +20,9 @@ public class UsuarioDetailsModel implements UsuarioDetailsContract.Model {
     }
 
     @Override
-    public void loadUsuarioId(long id, OnLoadUsuarioListener listener) {
+    public void loadUsuarioById(long id, OnLoadUsuarioListener listener) {
         ResetTrainApiInterface resetTrainApi = ResetTrainApi.buildInstance();
-        Call<Usuario> callUsuarios = resetTrainApi.getUsuarioId(id);
+        Call<Usuario> callUsuarios = resetTrainApi.getUsuarioById(id);
         callUsuarios.enqueue(new Callback<Usuario>() {
             @Override
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
@@ -41,10 +38,4 @@ public class UsuarioDetailsModel implements UsuarioDetailsContract.Model {
             }
         });
     }
-
-    @Override
-    public Usuario getUsuario(long id) {
-        return null;
-    }
-
 }

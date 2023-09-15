@@ -17,12 +17,12 @@ public class UsuarioRegisterPresenter implements UsuarioRegisterContract.Present
     }
 
     @Override
-    public void onRegisterSuccess(Usuario usuario) {
+    public void onRegisterUsuarioSuccess(Usuario usuario) {
         view.showMessage("El usuario " + usuario.getId() + " se ha registrado correctamente");
     }
 
     @Override
-    public void onRegisterError(String message) {
+    public void onRegisterUsuarioError(String message) {
         view.showError("Error al registrar usuario");
     }
 

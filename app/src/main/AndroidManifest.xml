@@ -11,42 +11,43 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ResetTrain"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        android:networkSecurityConfig="@xml/network_security_config">
         <activity
-            android:name=".MapaActivity"
+            android:name=".view.MapsView"
             android:exported="false" />
         <activity
-            android:name=".MapsActivity"
+            android:name=".view.PerfilDetailsView"
             android:exported="false" />
         <activity
-            android:name=".PerfilDetailsActivity"
+            android:name=".view.RutinaDetailsView"
             android:exported="false" />
         <activity
-            android:name=".RutinaDetailsActivity"
+            android:name=".view.UsuarioDetailsView"
             android:exported="false" />
         <activity
-            android:name=".UsuarioDetailsActivity"
+            android:name=".view.RutinaListView"
             android:exported="false" />
         <activity
-            android:name=".ViewRutinaActivity"
+            android:name=".view.UsuarioListView"
             android:exported="false" />
         <activity
-            android:name=".ViewUsuarioActivity"
+            android:name=".view.PerfilListView"
             android:exported="false" />
         <activity
-            android:name=".ViewPerfilActivity"
+            android:name=".view.PerfilRegisterView"
             android:exported="false" />
         <activity
-            android:name=".AddPerfilActivity"
+            android:name=".view.RutinaRegisterView"
             android:exported="false" />
         <activity
-            android:name=".AddRutinaActivity"
+            android:name=".view.UsuarioRegisterView"
             android:exported="false" />
         <activity
-            android:name=".AddUsuarioActivity"
-            android:exported="false" />
+            android:name=".view.RutinaListFavoritoView"
+            android:exported="false"/>
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainView"
             android:exported="true"
             android:theme="@style/Theme.Material3.DayNight">
             <intent-filter>

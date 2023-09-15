@@ -1,4 +1,4 @@
-package com.svalero.resettrain;
+package com.svalero.resettrain.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,21 +14,24 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
+import com.svalero.resettrain.R;
 import com.svalero.resettrain.adapters.RutinaAdapter;
-import com.svalero.resettrain.database.AppDatabase;
+import com.svalero.resettrain.contract.RutinaListContract;
 import com.svalero.resettrain.domain.LanguageItem;
 import com.svalero.resettrain.domain.Rutina;
+import com.svalero.resettrain.presenter.RutinaListPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class ViewRutinaActivity extends AppCompatActivity {
+public class RutinaListView extends AppCompatActivity implements RutinaListContract.View {
 
     private List<Rutina> rutinaList;
     private RutinaAdapter adapter;
+
+    private RutinaListPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +49,13 @@ public class ViewRutinaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_rutina);
 
+        presenter = new RutinaListPresenter(this);
         rutinaList = new ArrayList<>();
+        initializeRecyclerView();
 
+    }
+
+    private void initializeRecyclerView(){
         RecyclerView recyclerView = findViewById(R.id.rutina_list);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -58,12 +66,7 @@ public class ViewRutinaActivity extends AppCompatActivity {
 
     protected void onResume(){
         super.onResume();
-
-        final AppDatabase database = Room.databaseBuilder(this, AppDatabase.class, "rutina")
-                .allowMainThreadQueries().build();
-        rutinaList.clear();
-        rutinaList.addAll(database.rutinaDao().getAll());
-        adapter.notifyDataSetChanged();
+        presenter.loadAllRutinas();
     }
 
     public void goBackButton(View view) {
@@ -119,4 +122,17 @@ public class ViewRutinaActivity extends AppCompatActivity {
         finish();
         startActivity(intent);
     }
+
+    @Override
+    public void showRutinas(List<Rutina> rutinas) {
+        rutinaList.clear();
+        rutinaList.addAll(rutinas);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showError(String message) {
+
+    }
+
 }

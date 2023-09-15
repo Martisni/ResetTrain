@@ -6,32 +6,31 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.svalero.resettrain.R;
-import com.svalero.resettrain.contract.UsuarioRegisterContract;
-import com.svalero.resettrain.database.AppDatabase;
+import com.svalero.resettrain.adapters.RutinaAdapter;
+import com.svalero.resettrain.contract.RutinaListContract;
 import com.svalero.resettrain.domain.LanguageItem;
-import com.svalero.resettrain.domain.Usuario;
-import com.svalero.resettrain.presenter.UsuarioRegisterPresenter;
+import com.svalero.resettrain.domain.Rutina;
+import com.svalero.resettrain.presenter.RutinaListPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class UsuarioRegisterView extends AppCompatActivity implements UsuarioRegisterContract.View {
+public class RutinaListFavoritoView extends AppCompatActivity implements RutinaListContract.View{
+    private List<Rutina> rutinaList;
+    private RutinaAdapter adapter;
 
-    private Usuario usuario;
-    private UsuarioRegisterPresenter presenter;
-
+    private RutinaListPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,47 +46,30 @@ public class UsuarioRegisterView extends AppCompatActivity implements UsuarioReg
         getResources().updateConfiguration(config, getResources().getDisplayMetrics());
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_usuario);
+        setContentView(R.layout.activity_view_rutina);
+
+        presenter = new RutinaListPresenter(this);
+        rutinaList = new ArrayList<>();
+        initializeRecyclerView();
+
     }
 
-    public void addUsuario(View view) {
-        EditText etName = findViewById(R.id.nameEditText);
-        EditText etSurname = findViewById(R.id.apellidosEditText);
-        EditText etObjetive = findViewById(R.id.descriptionEditText);
-        EditText etPassword = findViewById(R.id.contrasenaEditText);
-        EditText etCumple = findViewById(R.id.fechaEditText);
-        EditText etEmail = findViewById(R.id.emailEditText);
-        EditText etPhone = findViewById(R.id.movilEditText);
+    private void initializeRecyclerView(){
+        RecyclerView recyclerView = findViewById(R.id.rutina_list);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new RutinaAdapter(this, rutinaList);
+        recyclerView.setAdapter(adapter);
+    }
 
-        String name = etName.getText().toString();
-        String surname = etSurname.getText().toString();
-        String objetive = etObjetive.getText().toString();
-        String password = etPassword.getText().toString();
-        String birthdate = etCumple.getText().toString();
-        String email = etEmail.getText().toString();
-        String phone = etPhone.getText().toString();
-
-        Usuario usuario = new Usuario(name, surname, objetive, password, birthdate, email, phone);
-        presenter.registerUsuario(usuario);
-
-        etName.setText("");
-        etSurname.setText("");
-        etObjetive.setText("");
-        etPassword.setText("");
-        etCumple.setText("");
-        etEmail.setText("");
-        etPhone.setText("");
-        etName.requestFocus();
+    protected void onResume(){
+        super.onResume();
+        presenter.loadAllRutinas();
     }
 
     public void goBackButton(View view) {
         onBackPressed();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actionbar, menu);
-        return true;
     }
 
     @Override
@@ -141,17 +123,28 @@ public class UsuarioRegisterView extends AppCompatActivity implements UsuarioReg
     }
 
     @Override
-    public void showMessage(String message) {
+    public void showRutinas(List<Rutina> rutinas) {
+        if (rutinas != null) {
+            rutinaList.clear();
 
+            // Filtrar las rutinas con favorito true
+            for (Rutina rutina : rutinas) {
+                if (rutina.isFavorito()) {
+                    rutinaList.add(rutina);
+                }
+            }
+
+            adapter.notifyDataSetChanged();
+        } else {
+            // Manejar el caso en el que 'rutinas' sea nula, por ejemplo, mostrar un mensaje de error.
+            // Por ejemplo: showError("La lista de rutinas es nula.");
+        }
     }
+
 
     @Override
-    public void showError(String errorMessage) {
+    public void showError(String message) {
 
     }
 
-    @Override
-    public void resetForm() {
-
-    }
 }

@@ -1,4 +1,4 @@
-package com.svalero.resettrain;
+package com.svalero.resettrain.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,27 +8,30 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
-import com.svalero.resettrain.adapters.PerfilAdapter;
+import com.svalero.resettrain.R;
+import com.svalero.resettrain.contract.PerfilRegisterContract;
 import com.svalero.resettrain.database.AppDatabase;
 import com.svalero.resettrain.domain.LanguageItem;
 import com.svalero.resettrain.domain.Perfil;
+import com.svalero.resettrain.domain.Usuario;
+import com.svalero.resettrain.presenter.PerfilRegisterPresenter;
+import com.svalero.resettrain.presenter.UsuarioRegisterPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class ViewPerfilActivity extends AppCompatActivity {
+public class PerfilRegisterView extends AppCompatActivity implements PerfilRegisterContract.View {
 
-    private List<Perfil> perfilList;
-    private PerfilAdapter adapter;
+    private Perfil perfil;
+    private PerfilRegisterPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,32 +47,33 @@ public class ViewPerfilActivity extends AppCompatActivity {
         getResources().updateConfiguration(config, getResources().getDisplayMetrics());
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_perfil);
-
-        perfilList = new ArrayList<>();
-
-        RecyclerView recyclerView = findViewById(R.id.perfil_list);
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new PerfilAdapter(this, perfilList);
-        recyclerView.setAdapter(adapter);
+        setContentView(R.layout.activity_add_perfil);
     }
+    public void addPerfil(View view) {
+        EditText etRitmo = findViewById(R.id.ritmoEditText);
+        EditText etMedidas = findViewById(R.id.medidasEditText);
+        EditText etPeso = findViewById(R.id.pesoEditText);
+        EditText etFecha = findViewById(R.id.fechaEditText);
 
-    @Override
-    protected void onResume(){
-        super.onResume();
+        String ritmo = etRitmo.getText().toString();
+        String medidas = etMedidas.getText().toString();
+        String peso = etPeso.getText().toString();
+        String fecha = etFecha.getText().toString();
 
-        final AppDatabase database = Room.databaseBuilder(this, AppDatabase.class, "perfil")
-                .allowMainThreadQueries().build();
-        perfilList.clear();
-        perfilList.addAll(database.perfilDao().getAll());
-        adapter.notifyDataSetChanged();
+        Perfil perfil = new Perfil(ritmo, medidas, peso, fecha);
+        presenter.registerPerfil(perfil);
+
+        etRitmo.setText("");
+        etMedidas.setText("");
+        etPeso.setText("");
+        etFecha.setText("");
+        etRitmo.requestFocus();
     }
 
     public void goBackButton(View view) {
         onBackPressed();
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -121,4 +125,18 @@ public class ViewPerfilActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    public void showMessage(String message) {
+
+    }
+
+    @Override
+    public void resetForm() {
+
+    }
+
+    @Override
+    public void showError(String errorMessage) {
+
+    }
 }

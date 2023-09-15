@@ -13,10 +13,10 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
-import com.svalero.resettrain.PerfilDetailsActivity;
 import com.svalero.resettrain.R;
 import com.svalero.resettrain.database.AppDatabase;
 import com.svalero.resettrain.domain.Perfil;
+import com.svalero.resettrain.view.PerfilDetailsView;
 
 import java.util.List;
 
@@ -92,7 +92,7 @@ public class PerfilAdapter extends RecyclerView.Adapter<PerfilAdapter.PerfilView
     private void detailPerfil(int position) {
         Perfil perfil = perfilList.get(position);
 
-        Intent intent = new Intent(context, PerfilDetailsActivity.class);
+        Intent intent = new Intent(context, PerfilDetailsView.class);
         intent.putExtra("ritmo", perfil.getRitmo());
         context.startActivity(intent);
     }
